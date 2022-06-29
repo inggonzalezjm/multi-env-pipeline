@@ -1,0 +1,10 @@
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+cfnnag.out/*
+.vscode
+out.yaml
+*.bkp

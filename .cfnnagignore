@@ -1,0 +1,13 @@
+RulesToSuppress:
+  - id: W12
+    reason: CDK Stack created for testing purposes.
+  - id: W35
+    reason: CDK Stack created for testing purposes.
+  - id: W41
+    reason: CDK Stack created for testing purposes.
+  - id: W51
+    reason: CDK Stack created for testing purposes.
+  - id: W76
+    reason: CDK Stack created for testing purposes.
+  - id: F19
+    reason: CDK Stack created for testing purposes.

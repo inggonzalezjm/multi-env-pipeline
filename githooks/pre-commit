@@ -1,0 +1,55 @@
+#!/bin/bash
+
+SOURCE_DIR='./cdk.out'
+OUTPUT_DIR='./cfnnag.out'
+
+function setup_environment(){
+        cdk synth
+        mkdir -p $OUTPUT_DIR
+        for template in $(find $SOURCE_DIR -type f -maxdepth 2 -name '*.template.json'); do cp $template $OUTPUT_DIR; done
+}
+
+function cleanup_environment(){
+	rm -rf $OUTPUT_DIR
+}
+
+function npm_checks(){
+        printf "\n*** Executing npm_checks\n"
+	npm run test
+}
+
+function untracked_file_checks(){
+        printf "\n*** Executing untracked_file_checks\n"
+        git diff --quiet --exit-code
+        if [ $? -eq 0 ]; then                
+                return 0                
+        else
+                echo 'FAIL: There are untracked files in working tree'
+                return 1
+        fi
+}
+
+function cfn_nag_checks(){
+        printf "\n*** Executing cfn_nag_checks\n"
+	cfn_nag_scan --deny-list-path .cfnnagignore --input-path $OUTPUT_DIR
+}
+
+function cfn_lint_checks(){
+        printf "\n*** Executing cfn_lint_checks\n"
+	cfn-lint $OUTPUT_DIR/*
+}
+
+function semgrep_checks(){
+        printf "\n*** Executing semgrep_checks\n"
+	semgrep --config=p/javascript $OUTPUT_DIR
+}
+
+setup_environment
+if npm_checks && untracked_file_checks && cfn_nag_checks && cfn_lint_checks && semgrep_checks;
+then
+        cleanup_environment
+        exit 0
+else
+        cleanup_environment
+        exit 1
+fi

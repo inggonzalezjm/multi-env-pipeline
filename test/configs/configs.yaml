@@ -1,0 +1,25 @@
+Globals:
+  # Mandatory Global Parameters to be passed to all Environments
+  AppName: "TestApp"
+  DeploymentAccount: "999999999999"
+  DeploymentRegion: "us-east-1"
+  # Global User defined Parameters to be passed to all Environments
+  GlobalParam1: "GlobalParam1"
+  # User defined Tags to be added to resources in all Environments
+  Tags:
+    AppName: "TestApp"
+    AppID: "Test12345"
+    AppVersion: "1.0.0"
+
+Environments:
+  TestEnv1:
+    # Mandatory Parameters to be passed to this Environment
+    Name: TestEnv1
+    Account: "111111111111"
+    Region: "us-east-1"
+    ManualApprovalStep: false
+    # This Section contains optional & required User defined Parameters to deploy the Environment Stack
+    BucketName: "bucket-test-env-1"
+    # User defined Tags to be added to resources in this Environment
+    Tags:
+      CostCenter: "Test-54321"

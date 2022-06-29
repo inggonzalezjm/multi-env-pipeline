@@ -1,0 +1,25 @@
+{
+  "name": "multi-env-pipeline",
+  "version": "0.1.0",
+  "bin": {
+    "multi-env-pipeline": "bin/multi-env-pipeline.js"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "echo \"The build step is not required when using JavaScript!\" && exit 0",
+    "cdk": "cdk",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "aws-cdk": "2.29.1",
+    "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.29.1",
+    "constructs": "^10.0.0",
+    "yaml": "^2.1.1"
+  }
+}
